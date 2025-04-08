@@ -7,7 +7,7 @@
 </head>
 <body class="container mt-5">
   <h2>Nouvelle tâche</h2>
-  <form onsubmit="submitTask(event)">
+  <form id="taskForm">
     <div class="mb-3">
       <label for="content" class="form-label">Contenu</label>
       <input type="text" class="form-control" id="content" required>
@@ -17,15 +17,32 @@
   </form>
 
   <script>
-    function submitTask(e) {
+    document.getElementById("taskForm").addEventListener("submit", function (e) {
       e.preventDefault();
       const content = document.getElementById('content').value;
-      fetch('http://localhost:3000/api/tasks', {
+
+      console.log("📤 Envoi tâche :", content); // ✅ vérifie que la valeur est bien lue
+
+      fetch('http://localhost:3000/tasks', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ content })
-      }).then(() => window.location.href = 'tasks.html');
-    }
+      })
+      .then(response => {
+        if (!response.ok) throw new Error("Échec ajout tâche");
+        return response.json();
+      })
+      .then(data => {
+        console.log("✅ Réponse serveur :", data);
+        window.location.href = 'tasks.html';
+      })
+      .catch(err => {
+        alert("❌ Erreur : " + err.message);
+        console.error(err);
+      });
+    });
   </script>
 </body>
 </html>
+
+
