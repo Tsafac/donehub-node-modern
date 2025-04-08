@@ -9,12 +9,12 @@ donehub-node/
 ├── backend/
 │   ├── server.js
 │   ├── package.json
-│   └── Dockerfile          # À compléter
+│   └── Dockerfile          
 ├── frontend/
 │   ├── index.html
 │   ├── tasks.html
 │   └── add_task.html
-└── docker-compose.yml      # À compléter
+└── docker-compose.yml      
 ```
 
 ## 🔧 À faire par vous-même
